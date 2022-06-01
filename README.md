@@ -29,6 +29,25 @@ const hasChildren = false;
 const canCollapse = true;
 ```
 
+Название переменных, объявляющих интерфейс, должно иметь префикс I
+```js
+// Bad
+interface Notification {}
+
+// Good
+interface INotification {}
+```
+
+Название переменных, объявляющих тип, должно иметь префикс T
+```js
+// Bad
+type Options {}
+
+// Good
+type TOptions {}
+```
+
+
 Не использовать any
 ```js
 // Bad
@@ -77,6 +96,63 @@ import { useEffect } from 'react';
 import { FooType } from '@src/types';
 import { BarType } from './types';
 ```
+
+В теле стрелочных функций не требуются скобки там, где их можно опустить
+```js
+// Bad
+let foo = () => {
+    return 0;
+};
+let foo = () => {
+    return {
+        bar: {
+            foo: 1,
+            bar: 2,
+        }
+    };
+};
+
+// Good
+let foo = () => 0;
+let foo = () => ({
+    bar: {
+        foo: 1,
+        bar: 2,
+    }
+});
+```
+
+Аргументы стрелочных функций всегда заключены в круглые скобки
+```js
+// Bad
+(a) => {}
+
+// Good
+a => {}
+```
+
+При объявлении объектов и массивов запрещается конечная запятая, если последний элемент или свойство находится на той же строке, что и закрывающий ] или }
+```js
+// Bad
+const foo = { bar: "baz", qux: "quux", };
+
+const arr = [1,2,];
+
+// Good
+const foo = {
+    bar: "baz",
+    qux: "quux",
+};
+
+const foo = {
+    bar: "baz",
+    qux: "quux"
+};
+
+const foo = {bar: "baz", qux: "quux"};
+const arr = [1,2];
+```
+
 
 ## React
 
@@ -179,6 +255,24 @@ const App = () => {
         </Context.Provider>
     );
 };
+```
+
+Если у JSX элемента множество пропсов, то их перечисление начинается с новой строки
+```js
+// Bad
+<Hello personal
+       prop />
+
+<Hello foo={{
+}} />
+
+// Good
+<Hello personal={true} />
+
+<Hello
+    personal={true}
+    foo="bar"
+/>
 ```
 
 ## Redux
